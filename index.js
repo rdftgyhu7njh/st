@@ -1,10 +1,28 @@
-function findPeakElement(nums) {
-  let left = 0;
-  let right = nums.length - 1;
-  while (left < right) {
-    const mid = Math.floor((left + right) / 2);
-    if (nums[mid] < nums[mid + 1]) left = mid + 1;
-    else right = mid;
+function numIslands(grid) {
+  if (grid.length === 0) return 0;
+  let count = 0;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === "1") {
+        dfs(grid, i, j);
+        count++;
+      }
+    }
   }
-  return left;
+  return count;
+}
+function dfs(grid, i, j) {
+  if (
+    i < 0 ||
+    i >= grid.length ||
+    j < 0 ||
+    j >= grid[0].length ||
+    grid[i][j] === "0"
+  )
+    return;
+  grid[i][j] = "0";
+  dfs(grid, i + 1, j);
+  dfs(grid, i - 1, j);
+  dfs(grid, i, j + 1);
+  dfs(grid, i, j - 1);
 }
